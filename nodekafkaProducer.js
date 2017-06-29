@@ -1,19 +1,26 @@
-var kafka = require('kafka-node'),
-    HighLevelProducer = kafka.HighLevelProducer,
-    client = new kafka.Client(),
-    producer = new HighLevelProducer(client),
-    payloads = [
-        { topic: 'topic1', messages: 'hiworld' },
-        { topic: 'topic2', messages: ['helloo', 'worldd'] }
-    ];
-producer.on('ready', function() {
-    producer.send(payloads, function(err, data) {
-        payloads.forEach((payload) => {
-            console.log("payload here is", payload.messages);
-        });
-        console.log(data);
-    });
+var kafka = require('kafka-node');
+var HighLevelProducer = kafka.HighLevelProducer;
+var Client = kafka.Client;
+var client = new Client();
+var count = 6;
+var rets = 0;
+var producer = new HighLevelProducer(client);
+
+producer.on('ready', function () {
+  setInterval(send, 1000);
 });
-producer.on('error', function(err) {
-    console.log(err);
-})
+
+producer.on('error', function (err) {
+  console.log('error', err);
+});
+
+function send () {
+  var message = "hello "+(rets+1)+" message sent";
+  producer.send([
+    {topic: 'topic1', messages: [message]}
+  ], function (err, data) {
+    if (err) console.log(err);
+    else console.log('send %d messages', ++rets);
+    if (rets === count) process.exit();
+  });
+}

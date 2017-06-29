@@ -9,7 +9,7 @@ var options = { autoCommit: true, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 10
 var consumer = new HighLevelConsumer(client, topics, options);
 
 consumer.on('message', function (message) {
-  console.log("topic is",message);
+  console.log("value is",message);
 });
 
 consumer.on('error', function (err) {
