@@ -1,7 +1,7 @@
 'use strict';
 
 var kafka = require('kafka-node');
-var HighLevelConsumer = kafka.HighLevelConsumer;
+var HighLevelConsumer = kafka.Consumer;
 var Client = kafka.Client;
 var client = new Client('localhost:2181');
 var topics = [{ topic: 'topic1' },{ topic: 'topic2' }];
