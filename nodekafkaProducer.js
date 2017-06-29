@@ -17,7 +17,8 @@ producer.on('error', function (err) {
 function send () {
   var message = "hello "+(rets+1)+" message sent";
   producer.send([
-    {topic: 'topic1', messages: [message]}
+    {topic: 'topic1', messages: [message]},
+    {topic: 'topic2', messages: [message]}
   ], function (err, data) {
     if (err) console.log(err);
     else console.log('send %d messages', ++rets);
